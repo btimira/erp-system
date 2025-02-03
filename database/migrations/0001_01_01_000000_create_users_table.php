@@ -16,7 +16,8 @@ return new class extends Migration
             $table->string('name');
             $table->string('email')->unique();
             $table->string('phone')->nullable();
-            $table->string('role')->default('user'); // Example roles: admin, user, manager
+            $table->string('role')->default('Sales Rep'); // Default role
+            $table->json('permissions')->nullable(); // Store permissions as JSON
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();
@@ -44,13 +45,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        // Drop dependent tables first to prevent foreign key constraint errors
-        if (Schema::hasTable('sales_orders')) {
-            Schema::dropIfExists('sales_orders');
-        }
-
-        Schema::dropIfExists('users');
-        Schema::dropIfExists('password_reset_tokens');
         Schema::dropIfExists('sessions');
+        Schema::dropIfExists('password_reset_tokens');
+        Schema::dropIfExists('users');
     }
 };
