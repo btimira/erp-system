@@ -52,9 +52,9 @@ class Kernel extends HttpKernel
      * @var array
      */
     protected $routeMiddleware = [
-    'auth' => \App\Http\Middleware\Authenticate::class,
-    'role' => \App\Http\Middleware\RoleMiddleware::class,  // ✅ Correctly Registered
-    'permission' => \App\Http\Middleware\PermissionMiddleware::class,
-];
+        'auth' => \App\Http\Middleware\Authenticate::class,
+        'role' => \App\Http\Middleware\RoleMiddleware::class,  // ✅ Correctly Registered
+        'permission' => \App\Http\Middleware\PermissionMiddleware::class,
+    ];
 
 }

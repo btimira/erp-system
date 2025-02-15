@@ -9,12 +9,12 @@ use Illuminate\Support\Facades\Log;
 
 class RoleMiddleware
 {
-    public function handle(Request $request, Closure $next, ...$roles)
+    public function handle(Request $request, Closure $next, $role)
     {
         Log::info('🔎 RoleMiddleware Triggered', [
             'user' => Auth::user() ? Auth::user()->toArray() : 'No user logged in',
             'user_role' => Auth::user() ? Auth::user()->role : 'No role',
-            'allowed_roles' => $roles,
+            'allowed_role' => $role,
             'url' => $request->url()
         ]);
 
@@ -25,13 +25,13 @@ class RoleMiddleware
 
         $userRole = Auth::user()->role;
 
-        if (empty($roles)) {
+        if (empty($role)) {
             Log::error('🚨 RoleMiddleware: No role parameter received.');
             abort(403, 'Unauthorized - Missing Role Parameter');
         }
 
-        if (!in_array($userRole, $roles)) {
-            Log::error("🚨 RoleMiddleware: ACCESS DENIED. User Role = {$userRole}, Allowed Roles = " . implode(',', $roles));
+        if ($userRole !== $role) {
+            Log::error("🚨 RoleMiddleware: ACCESS DENIED. User Role = {$userRole}, Allowed Role = {$role}");
             abort(403, 'Unauthorized - Role Not Allowed');
         }
 
