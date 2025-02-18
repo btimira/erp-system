@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
+use App\Http\Controllers\Inventory\ProductController;
+
 
 // 🔐 Authentication Routes
 Auth::routes();
@@ -55,5 +57,11 @@ Route::middleware(['auth'])->group(function () {
         Log::info('✅ Sales page accessed', ['user' => Auth::user()]);
         return 'Welcome to the Sales Dashboard!';
     })->middleware('role:Sales Rep'); // ✅ Correct
+
+    
+Route::middleware(['auth'])->group(function () {
+    Route::resource('products', ProductController::class);
+});
+
 });
 
