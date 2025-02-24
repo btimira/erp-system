@@ -1,0 +1,63 @@
+name: ERP CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - main  # Runs on every push to the main branch
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    services:
+      mysql:
+        image: mysql:8.0
+        env:
+          MYSQL_ROOT_PASSWORD: root
+          MYSQL_DATABASE: erp_test_db
+          MYSQL_USER: erp_user
+          MYSQL_PASSWORD: erp_password
+        ports:
+          - 3306:3306
+        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
+
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v3
+
+    - name: Set Up PHP & Composer
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: 8.2
+        extensions: mbstring, pdo_mysql, xml
+        tools: composer:v2
+
+    - name: Install Dependencies
+      run: composer install --no-interaction --prefer-dist --optimize-autoloader
+
+    - name: Set Up Environment
+      run: |
+        cp .env.example .env
+        echo "DB_CONNECTION=mysql" >> .env
+        echo "DB_HOST=127.0.0.1" >> .env
+        echo "DB_PORT=3306" >> .env
+        echo "DB_DATABASE=erp_test_db" >> .env
+        echo "DB_USERNAME=erp_user" >> .env
+        echo "DB_PASSWORD=erp_password" >> .env
+        php artisan key:generate
+
+    - name: Run Migrations & Seed Database
+      run: php artisan migrate --seed --force
+
+    - name: Run Laravel Tests
+      run: php artisan test
+
+    - name: Lint Code (Check for Syntax Errors)
+      run: composer global require squizlabs/php_codesniffer && ~/.composer/vendor/bin/phpcs --standard=PSR12 app/
+
+    - name: Deployment (Manual Step)
+      if: github.ref == 'refs/heads/main'
+      run: echo "Deployment step (Set up later)"
