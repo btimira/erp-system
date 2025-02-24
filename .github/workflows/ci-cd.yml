@@ -61,3 +61,7 @@ jobs:
     - name: Deployment (Manual Step)
       if: github.ref == 'refs/heads/main'
       run: echo "Deployment step (Set up later)"
+
+    - name: Debug Database Structure
+      run: php artisan tinker --execute="dump(collect(\DB::select('DESCRIBE products'))->pluck('Field'));"
+
