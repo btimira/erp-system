@@ -5,7 +5,6 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Inventory\ProductController;
 
-
 // 🔐 Authentication Routes
 Auth::routes();
 
@@ -58,10 +57,8 @@ Route::middleware(['auth'])->group(function () {
         return 'Welcome to the Sales Dashboard!';
     })->middleware('role:Sales Rep'); // ✅ Correct
 
-    
-Route::middleware(['auth'])->group(function () {
-    Route::resource('products', ProductController::class);
-});
 
+    Route::middleware(['auth'])->group(function () {
+        Route::resource('products', ProductController::class);
+    });
 });
-

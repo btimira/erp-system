@@ -12,13 +12,13 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('invoices', function (Blueprint $table) {
-        $table->id();
-        $table->foreignId('sales_order_id')->constrained('sales_orders')->onDelete('cascade');
-        $table->decimal('amount_due', 15, 2);
-        $table->decimal('amount_paid', 15, 2)->default(0.00);
-        $table->string('payment_status')->default('unpaid'); // e.g., unpaid, partial, paid
-        $table->date('due_date');
-        $table->timestamps();
+            $table->id();
+            $table->foreignId('sales_order_id')->constrained('sales_orders')->onDelete('cascade');
+            $table->decimal('amount_due', 15, 2);
+            $table->decimal('amount_paid', 15, 2)->default(0.00);
+            $table->string('payment_status')->default('unpaid'); // e.g., unpaid, partial, paid
+            $table->date('due_date');
+            $table->timestamps();
         });
     }
 

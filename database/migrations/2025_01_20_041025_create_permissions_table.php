@@ -9,17 +9,17 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-   public function up()
-{
-    Schema::create('permissions', function (Blueprint $table) {
-    $table->id();
-    $table->string('name')->unique();
-    $table->foreignId('role_id')
-          ->constrained('roles')  // References the `id` column in the `roles` table
-          ->onDelete('cascade');  // Ensures cascading delete
-    $table->timestamps();
-    });
-}
+    public function up()
+    {
+        Schema::create('permissions', function (Blueprint $table) {
+            $table->id();
+            $table->string('name')->unique();
+            $table->foreignId('role_id')
+             ->constrained('roles')  // References the `id` column in the `roles` table
+             ->onDelete('cascade');  // Ensures cascading delete
+            $table->timestamps();
+        });
+    }
 
     /**
      * Reverse the migrations.

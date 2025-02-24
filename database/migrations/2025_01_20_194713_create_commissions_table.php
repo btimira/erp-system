@@ -12,13 +12,12 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('commissions', function (Blueprint $table) {
-    $table->id();
-    $table->foreignId('sales_rep_id')->constrained('users');
-    $table->decimal('amount', 10, 2);
-    $table->string('status')->default('pending'); // Add this line
-    $table->timestamps();
-});
-
+            $table->id();
+            $table->foreignId('sales_rep_id')->constrained('users');
+            $table->decimal('amount', 10, 2);
+            $table->string('status')->default('pending'); // Add this line
+            $table->timestamps();
+        });
     }
 
     /**

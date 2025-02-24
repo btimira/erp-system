@@ -12,13 +12,12 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('targets', function (Blueprint $table) {
-    $table->id();
-    $table->foreignId('manager_id')->constrained('users');
-    $table->decimal('sales_target', 10, 2); // Add this line
-    $table->boolean('achieved')->default(false);
-    $table->timestamps();
-});
-
+            $table->id();
+            $table->foreignId('manager_id')->constrained('users');
+            $table->decimal('sales_target', 10, 2); // Add this line
+            $table->boolean('achieved')->default(false);
+            $table->timestamps();
+        });
     }
 
     /**

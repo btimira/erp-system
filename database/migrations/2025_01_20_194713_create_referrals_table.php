@@ -12,15 +12,13 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('referrals', function (Blueprint $table) {
-    $table->id();
-    $table->foreignId('referrer_id')->constrained('users');
-    $table->string('referred_email'); // Add this line
-    $table->decimal('commission', 10, 2);
-    $table->string('status')->default('pending');
-    $table->timestamps();
-});
-
-
+            $table->id();
+            $table->foreignId('referrer_id')->constrained('users');
+            $table->string('referred_email'); // Add this line
+            $table->decimal('commission', 10, 2);
+            $table->string('status')->default('pending');
+            $table->timestamps();
+        });
     }
 
     /**

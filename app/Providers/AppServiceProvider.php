@@ -21,9 +21,8 @@ class AppServiceProvider extends ServiceProvider
      * Bootstrap any application services.
      */
     public function boot(): void
-{
+    {
     // ✅ Correct way to register middleware
-    Route::aliasMiddleware('role', \App\Http\Middleware\RoleMiddleware::class);
-}
-
+        Route::aliasMiddleware('role', \App\Http\Middleware\RoleMiddleware::class);
+    }
 }

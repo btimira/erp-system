@@ -20,8 +20,8 @@ class ProductRequest extends FormRequest
      * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
      */
     public function rules()
-{
-    return [
+    {
+        return [
         'name' => 'required|string|max:255',
         'description' => 'nullable|string',
         'product_type' => 'required|in:Physical,Digital',
@@ -41,7 +41,6 @@ class ProductRequest extends FormRequest
         'air_transport' => 'nullable|numeric|min:0',
         'sea_transport' => 'nullable|numeric|min:0',
         'preferred_transport' => 'nullable|in:Local,Air,Sea',
-    ];
-}
-
+        ];
+    }
 }
