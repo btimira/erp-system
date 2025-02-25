@@ -52,15 +52,24 @@ return new class extends Migration {
 
 
     public function down()
-    {
-        Schema::table('products', function (Blueprint $table) {
-            $table->dropColumn([
-                'product_type', 'units', 'selling_price', 'currency',
-                'quantity', 'stock_status', 'account', 'tax', 'lead_time',
-                'cost_price', 'purchase_account', 'preferred_vendor',
-                'fixed_transport', 'local_transport', 'air_transport',
-                'sea_transport', 'preferred_transport'
-            ]);
-        });
-    }
+{
+    Schema::table('products', function (Blueprint $table) {
+        if (Schema::hasColumn('products', 'product_type')) {
+            $table->dropColumn('product_type');
+        }
+        if (Schema::hasColumn('products', 'units')) {
+            $table->dropColumn('units');
+        }
+        if (Schema::hasColumn('products', 'selling_price')) {
+            $table->dropColumn('selling_price');
+        }
+        if (Schema::hasColumn('products', 'currency')) {
+            $table->dropColumn('currency');
+        }
+        if (Schema::hasColumn('products', 'quantity')) {
+            $table->dropColumn('quantity');
+        }
+    });
+}
+
 };
