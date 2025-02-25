@@ -2,25 +2,13 @@
 
 namespace App\Services;
 
-use App\Models\Role;
+use Illuminate\Support\Facades\Auth;
 
 class RoleService
 {
-    public function assignRoleToUser($user, $roleName)
+    public function getUserRole()
     {
-        $role = Role::where('name', $roleName)->first();
-        if ($role) {
-            return $user->roles()->attach($role->id);
-        }
-        return false;
-    }
-
-    public function removeRoleFromUser($user, $roleName)
-    {
-        $role = Role::where('name', $roleName)->first();
-        if ($role) {
-            return $user->roles()->detach($role->id);
-        }
-        return false;
+        $user = Auth::user();
+        return $user ? $user->role : 'No user found';
     }
 }

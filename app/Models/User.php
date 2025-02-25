@@ -63,4 +63,27 @@ class User extends Authenticatable
     {
         return $this->hasMany(Referral::class, 'referrer_id');
     }
+
+    /**
+     * Check if the user has a specific role.
+     *
+     * @param string $role
+     * @return bool
+     */
+    public function hasRole(string $role): bool
+    {
+        return $this->role === $role;
+    }
+
+    /**
+     * Assign a role to the user.
+     *
+     * @param string $role
+     * @return void
+     */
+    public function assignRole(string $role): void
+    {
+        $this->role = $role;
+        $this->save();
+    }
 }

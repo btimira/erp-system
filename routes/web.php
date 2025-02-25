@@ -39,26 +39,7 @@ Route::middleware(['auth'])->group(function () {
     })->middleware('role:Sales Rep');
 });
 
-
 // 🛠️ Permission-Based Routes
 Route::middleware(['auth'])->group(function () {
-    Route::get('/admin', function () {
-        Log::info('✅ Admin page accessed', ['user' => Auth::user()]);
-        return 'Welcome to the Admin Dashboard!';
-    })->middleware('role:Admin'); // ✅ Correct
-
-    Route::get('/manager', function () {
-        Log::info('✅ Manager page accessed', ['user' => Auth::user()]);
-        return 'Welcome to the Manager Dashboard!';
-    })->middleware('role:Manager'); // ✅ Correct
-
-    Route::get('/sales', function () {
-        Log::info('✅ Sales page accessed', ['user' => Auth::user()]);
-        return 'Welcome to the Sales Dashboard!';
-    })->middleware('role:Sales Rep'); // ✅ Correct
-
-
-    Route::middleware(['auth'])->group(function () {
-        Route::resource('products', ProductController::class);
-    });
+    Route::resource('products', ProductController::class)->middleware('role:Admin');
 });
