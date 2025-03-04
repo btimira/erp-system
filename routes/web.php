@@ -4,6 +4,11 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Inventory\ProductController;
+use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\SupplierController;
+use App\Http\Controllers\Accounting\PaymentController;
+use App\Http\Controllers\Accounting\InvoiceController;
+
 
 // 🔐 Authentication Routes
 Auth::routes();
@@ -37,6 +42,12 @@ Route::middleware(['auth'])->group(function () {
         Log::info('✅ Sales page accessed', ['user' => Auth::user()]);
         return 'Welcome to the Sales Dashboard!';
     })->middleware('role:Sales Rep');
+
+    // Resource routes
+    Route::resource('customers', CustomerController::class);
+    Route::resource('suppliers', SupplierController::class);
+    Route::resource('payments', PaymentController::class);
+    Route::resource('invoices', InvoiceController::class);
 });
 
 // 🛠️ Permission-Based Routes
