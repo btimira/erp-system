@@ -8,20 +8,36 @@ on:
 jobs:
   update-progress:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v2
 
       - name: Generate Progress Summary
         run: |
-          echo "### Latest Changes" > progress.md
-          git log -1 --pretty=format:"%h - %s (%ci)" >> progress.md
+          echo "# 📊 ERP Development Progress Report" > progress.md
+          echo "" >> progress.md
           
+          echo "## ✅ Completed Features" >> progress.md
+          git log --grep="Completed" --pretty=format:"- %s" >> progress.md
+          echo "" >> progress.md
+          
+          echo "## 🔨 Pending/In-Progress Features" >> progress.md
+          git log --grep="Pending" --pretty=format:"- %s" >> progress.md
+          echo "" >> progress.md
+          
+          echo "## 🐞 Bugs & Issues to Fix" >> progress.md
+          git log --grep="Bug" --pretty=format:"- %s" >> progress.md
+          echo "" >> progress.md
+          
+          echo "## 🛠 Areas that Need Optimization" >> progress.md
+          git log --grep="Optimize" --pretty=format:"- %s" >> progress.md
+          echo "" >> progress.md
+
       - name: Commit & Push Progress
         run: |
           git config --global user.name 'GitHub Actions'
           git config --global user.email 'actions@github.com'
           git add progress.md
-          git commit -m "Updated progress summary"
+          git commit -m "Updated progress.md with latest development status"
           git push
-    
