@@ -13,4 +13,14 @@ class Invoice extends Model
         'status',
         'due_date'
     ];
+
+    public function customer()
+    {
+        return $this->belongsTo(Customer::class);
+    }
+
+    public function transactions()
+    {
+        return $this->hasMany(Transaction::class);
+    }
 }

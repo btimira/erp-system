@@ -23,4 +23,12 @@ class Target extends Model
     {
         return $this->belongsTo(Team::class);
     }
+
+    /**
+     * Get the transactions associated with the target.
+     */
+    public function transactions()
+    {
+        return $this->hasMany(Transaction::class);
+    }
 }

@@ -65,6 +65,14 @@ class User extends Authenticatable
     }
 
     /**
+     * Get the roles associated with the user.
+     */
+    public function roles()
+    {
+        return $this->belongsToMany(Role::class);
+    }
+
+    /**
      * Check if the user has a specific role.
      *
      * @param string $role
@@ -72,7 +80,7 @@ class User extends Authenticatable
      */
     public function hasRole(string $role): bool
     {
-        return $this->role === $role;
+        return $this->roles->contains('name', $role);
     }
 
     /**
@@ -83,7 +91,21 @@ class User extends Authenticatable
      */
     public function assignRole(string $role): void
     {
-        $this->role = $role;
-        $this->save();
+        $role = Role::where('name', $role)->firstOrFail();
+        $this->roles()->attach($role);
+    }
+
+    /**
+     * Boot method to assign a default role to new users.
+     */
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($user) {
+            if (empty($user->role)) {
+                $user->role = 'User'; // Assign default role
+            }
+        });
     }
 }
