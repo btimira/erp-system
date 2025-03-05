@@ -8,6 +8,7 @@ use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\Accounting\PaymentController;
 use App\Http\Controllers\Accounting\InvoiceController;
+use App\Http\Controllers\InventoryController;
 
 
 // 🔐 Authentication Routes
@@ -54,3 +55,7 @@ Route::middleware(['auth'])->group(function () {
 Route::middleware(['auth', 'role:Admin'])->group(function () {  
     Route::resource('products', ProductController::class);
 });
+
+ Route::middleware(['web', 'auth'])->group(function () {
+      Route::resource('inventories', InventoryController::class);
+  });
