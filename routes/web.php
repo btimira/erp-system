@@ -51,6 +51,6 @@ Route::middleware(['auth'])->group(function () {
 });
 
 // 🛠️ Permission-Based Routes
-Route::middleware(['auth'])->group(function () {
-    Route::resource('products', ProductController::class)->middleware('role:Admin');
+Route::middleware(['auth', 'role:Admin'])->group(function () {  
+    Route::resource('products', ProductController::class);
 });
