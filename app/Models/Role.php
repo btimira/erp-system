@@ -19,4 +19,12 @@ class Role extends Model
     {
         return $this->hasMany(User::class);
     }
+
+    /**
+     * A role can have many permissions.
+     */
+    public function permissions()
+    {
+        return $this->belongsToMany(Permission::class);
+    }
 }

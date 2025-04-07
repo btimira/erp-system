@@ -31,4 +31,12 @@ class Referral extends Model
     {
         return $this->belongsTo(Customer::class);
     }
+
+    /**
+     * Get the transactions associated with the referral.
+     */
+    public function transactions()
+    {
+        return $this->hasMany(Transaction::class);
+    }
 }

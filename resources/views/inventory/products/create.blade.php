@@ -1,3 +1,4 @@
+git status
 @extends('layouts.app')
 
 @section('content')

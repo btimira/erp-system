@@ -11,9 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('invoices', function (Blueprint $table) {
-            $table->dropColumn('description');
-            $table->dropColumn('issue_date');
+        Schema::table('permissions', function (Blueprint $table) {
+            $table->string('guard_name')->default('web')->after('name');
         });
     }
 
@@ -22,9 +21,9 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('invoices', function (Blueprint $table) {
-            $table->string('description')->nullable();
-            $table->date('issue_date')->nullable();
+        Schema::table('permissions', function (Blueprint $table) {
+            $table->dropColumn('guard_name');
         });
     }
 };
+

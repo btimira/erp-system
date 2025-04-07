@@ -7,16 +7,18 @@ use Illuminate\Support\Facades\Schema;
 return new class extends Migration {
     public function up(): void
     {
-        Schema::create('transactions', function (Blueprint $table) {
-            $table->id();
-            $table->unsignedBigInteger('product_id');
-            $table->integer('quantity');
-            $table->enum('transaction_type', ['IN', 'OUT']);
-            $table->dateTime('transaction_date');
-            $table->timestamps();
+        if (!Schema::hasTable('transactions')) {
+            Schema::create('transactions', function (Blueprint $table) {
+                $table->id();
+                $table->unsignedBigInteger('product_id');
+                $table->integer('quantity');
+                $table->enum('transaction_type', ['IN', 'OUT']);
+                $table->dateTime('transaction_date');
+                $table->timestamps();
 
-            $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
-        });
+                $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
+            });
+        }
     }
 
     public function down(): void
@@ -24,4 +26,5 @@ return new class extends Migration {
         Schema::dropIfExists('transactions');
     }
 };
+
 

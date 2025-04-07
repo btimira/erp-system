@@ -16,4 +16,19 @@ class Product extends Model
         'fixed_transport', 'local_transport', 'air_transport', 'sea_transport',
         'preferred_transport'
     ];
+
+    public function supplier()
+    {
+        return $this->belongsTo(Supplier::class, 'preferred_vendor');
+    }
+
+    public function inventory()
+    {
+        return $this->hasMany(Inventory::class);
+    }
+
+    public function transactions()
+    {
+        return $this->hasMany(Transaction::class);
+    }
 }

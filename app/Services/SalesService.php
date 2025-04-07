@@ -2,22 +2,14 @@
 
 namespace App\Services;
 
-use App\Models\Sale;
-
 class SalesService
 {
-    public function createSale($data)
+    public function getSalesData()
     {
-        return Sale::create($data);
-    }
-
-    public function updateSale(Sale $sale, $data)
-    {
-        return $sale->update($data);
-    }
-
-    public function deleteSale(Sale $sale)
-    {
-        return $sale->delete();
+        // Implement the logic to retrieve sales data
+        return [
+            'total_sales' => 1000,
+            'total_revenue' => 50000,
+        ];
     }
 }

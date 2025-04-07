@@ -17,6 +17,7 @@ class DatabaseSeeder extends Seeder
             CommissionSeeder::class,
             ReferralSeeder::class,
             TargetSeeder::class,
+            RoleSeeder::class,
         ]);
     }
 }
